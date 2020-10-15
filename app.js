@@ -1,9 +1,3 @@
-// const os = require('os');
-// // console.log(os);
-// console.log('Platform: ', os.platform());
-// console.log('Arch: ', os.arch());
-// console.log('Type:', os.userInfo());
-
 const fs = require('fs');
 
 const genders = [
@@ -47,16 +41,6 @@ const MaleNames = [
     'Kyle',
     'Umar',
     'Imran',
-    'Cory',
-    'Jenna',
-    'Rhys',
-    'Douglas',
-    'Ricky',
-    'Lewis',
-    'Muhammad',
-    'Hashim',
-    'Cole',
-    'Declan',
 ]
 
 const FemaleNames = [
@@ -101,16 +85,6 @@ const FemaleNames = [
     'Isobelle',
     'Angela',
     'Victoria',
-    'Lillie',
-    'Leonie',
-    'Sally',
-    'Bethany',
-    'Martha',
-    'Carly',
-    'Kathleen',
-    'Alyssa',
-    'Connie',
-    'Maisie',
 ]
 const LastNames = [
     'Mccarthy',
@@ -158,44 +132,34 @@ const LastNames = [
     'Ford',
     'Carroll',
     'Barker',
-    'Kay',
-    'Olson',
-    'Lewis',
-    'Torres',
-    'Baker',
-    'Osborne',
-    'Reyes',
-    'Leon',
-    'Chapman',
-    'Griffin',
 ]
 const people = [];
 
 function randChoice() {
     for (i = 0; i < 20; i++) {
+        let person = {};
         const genGender = Math.floor(Math.random() * genders.length);
-        const randGender = genders[genGender];
-        people.push('gender: ' + randGender);
-        if (randGender === 'female') {
+        person.gender = genders[genGender];
+        if (person.gender === 'female') {
             const genFemaleName = Math.floor(Math.random() * FemaleNames.length);
-            const randFemaleName = FemaleNames[genFemaleName];
-            people.push('name: ' + randFemaleName);
+            person.FemaleName = FemaleNames[genFemaleName];
+
         } else {
             const genMaleName = Math.floor(Math.random() * MaleNames.length);
-            const randMaleName = MaleNames[genMaleName];
-            people.push('name: ' + randMaleName);
+            person.MaleName = MaleNames[genMaleName];
         }
         const genLastName = Math.floor(Math.random() * LastNames.length);
-        const randLastName = LastNames[genLastName];
-        people.push('Last name: ' + randLastName);
-        console.log('randLastName:', randLastName);
-        const genAge = Math.floor(Math.random() * 60) + 18;
-        people.push('Age: ' + genAge);
+        person.LastName = LastNames[genLastName];
+
+        person.age = Math.floor(Math.random() * 60) + 18;
+        people.push(person);
         console.log('people', people);
     }
 }
 randChoice();
-fs.writeFile('people.json', people, (err) => {
+const data = JSON.stringify(people);
+
+fs.writeFile('people.json', data, (err) => {
     if (err) throw err;
     console.log('The file has been saved!');
 });
